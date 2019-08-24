@@ -9,3 +9,23 @@
   };
   // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
+//Get a pointer and point it to the database; be creative and call it "database"
+var database = firebase.database();
+
+//adding event listener for the submit button
+$("#btnSubmit").on("click", function(event) {
+  event.preventDefault();
+  
+  //grab user input
+  var trainName = $("#txtTrainName").val().trim();
+  var trainDestination = $("#txtDestination").val().trim();
+  var trainFirstTrainTime = $("#txtFirstTrainTime").val().trim();
+  var trainFrequency = $("#txtFrequency").val().trim();
+
+  //create local vars for train data
+
+  //upload train data to database
+
+  //clear all text boxes
+});
