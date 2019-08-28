@@ -16,17 +16,13 @@ var database = firebase.database();
 
 //adding event listener for the submit button
 $("#btnSubmit").on("click", function() {
-  alert("hey it doesn't work");
   event.preventDefault();
-  console.log("Here I am!");
   
   //grab user input
   var trainName = $("#txtTrainName").val().trim();
   var trainDestination = $("#txtDestination").val().trim();
   var trainFirstTrainTime = $("#txtFirstTrainTime").val().trim();
   var trainFrequency = $("#txtFrequency").val().trim();
-  console.log(trainName);
-  alert(trainName);
   //create local vars for train data
   var recAddTrain = {
   colTrainName: trainName,
@@ -60,14 +56,22 @@ database.ref().on("child_added", function(childSnapshot) {
    // var empStartPretty = moment.unix(empStart).format("MM/DD/YYYY");
     //var empMonths = moment().diff(moment(empStart, "X"), "months");
     var trainNextArrival;
-    var trainfrequency;
     //once a minute .....update 
     //need the first train time, add the frequency until greater than current time
-    var firstTrainTimeConverted = moment(trainFirstTrainTime, "hh:mm");
+    var firstTrainTimeConverted = moment(trainFirstTrainTime, "HH:mm");
+    var currentTimeConverted = moment().format();
+    var trainMinutesAway;
+    console.log(trainFirstTrainTime);
+    console.log(firstTrainTimeConverted);
+    console.log(currentTimeConverted);
+    console.log(moment(firstTrainTimeConverted).isAfter(currentTimeConverted));
     var trainMinutesAway = moment().diff(moment(firstTrainTimeConverted), "minutes");
-    while (trainMinutesAway < 0) {
-      firstTrainTimeConverted = firstTrainTimeConverted + moment(trainFrequency, "mm");
+    console.log(trainMinutesAway);
+    while (moment(firstTrainTimeConverted).isAfter(currentTimeConverted)) {
+      firstTrainTimeConverted = moment(firstTrainTimeConverted).add(moment(trainFrequency, "mm"));
+      console.log(firstTrainTimeConverted);
       trainMinutesAway = moment().diff(moment(firstTrainTimeConverted), "minutes");
+      console.log(trainMinutesAway);
     }
 
 
