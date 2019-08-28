@@ -59,21 +59,43 @@ database.ref().on("child_added", function(childSnapshot) {
     //once a minute .....update 
     //need the first train time, add the frequency until greater than current time
     var firstTrainTimeConverted = moment(trainFirstTrainTime, "HH:mm");
-    var currentTimeConverted = moment().format();
+    var currentTimeConverted = moment(new Date(), "HH:mm");
     var trainMinutesAway;
     console.log(trainFirstTrainTime);
     console.log(firstTrainTimeConverted);
     console.log(currentTimeConverted);
-    console.log(moment(firstTrainTimeConverted).isAfter(currentTimeConverted));
+    console.log(trainFrequency);
+    console.log(moment(firstTrainTimeConverted).isBefore(currentTimeConverted));
     var trainMinutesAway = moment().diff(moment(firstTrainTimeConverted), "minutes");
     console.log(trainMinutesAway);
-    while (moment(firstTrainTimeConverted).isAfter(currentTimeConverted)) {
-      firstTrainTimeConverted = moment(firstTrainTimeConverted).add(moment(trainFrequency, "mm"));
+    while (moment(firstTrainTimeConverted).isBefore(currentTimeConverted)) {
+      firstTrainTimeConverted.add(trainFrequency, "m");
       console.log(firstTrainTimeConverted);
-      trainMinutesAway = moment().diff(moment(firstTrainTimeConverted), "minutes");
+      trainMinutesAway = moment().diff(firstTrainTimeConverted, "minutes");
       console.log(trainMinutesAway);
+      trainNextArrival = moment(firstTrainTimeConverted, "HH:mm");
     }
-
+    //Read in the First Train Time         (FirstTrainTime)
+    //Read in the Train Frequency        (TrainFrequency)
+    //Get the Current Time                      (CurrentTime)
+    
+     
+    
+    //If CurrentTime is before FirstTrainTime...
+    
+   // - FirstTrainTime can be used as “Next Arrival”
+    
+   // - Difference between CurrentTime and FirstTrainTime (“Next Arrival”) can be used as “Minutes Away”
+    
+     
+    
+    //If CurrentTime is after FirstTrainTime...
+    
+    //- Add TrainFrequency to FirstTrainTime in a loop until FirstTrainTime is after CurrentTime
+    
+    //- FirstTrainTime can now be used as “Next Arrival”
+    
+    //- Difference between CurrentTime and FirstTrainTime (“Next Arrival”) is “Minutes Away”
 
 //hopefully some helpful code??????
 
