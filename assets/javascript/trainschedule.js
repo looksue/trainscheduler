@@ -60,60 +60,21 @@ database.ref().on("child_added", function(childSnapshot) {
     //need the first train time, add the frequency until greater than current time
     var firstTrainTimeConverted = moment(trainFirstTrainTime, "HH:mm");
     var currentTimeConverted = moment(new Date(), "HH:mm");
-    var trainMinutesAway;
-    console.log(trainFirstTrainTime);
-    console.log(firstTrainTimeConverted);
-    console.log(currentTimeConverted);
-    console.log(trainFrequency);
-    console.log(moment(firstTrainTimeConverted).isBefore(currentTimeConverted));
+    // var trainMinutesAway;
     var trainMinutesAway = moment().diff(moment(firstTrainTimeConverted), "minutes");
-    console.log(trainMinutesAway);
-    while (moment(firstTrainTimeConverted).isBefore(currentTimeConverted)) {
-      firstTrainTimeConverted.add(trainFrequency, "m");
-      console.log(firstTrainTimeConverted);
-      trainMinutesAway = moment().diff(firstTrainTimeConverted, "minutes");
-      console.log(trainMinutesAway);
-      trainNextArrival = moment(firstTrainTimeConverted, "HH:mm");
-    }
-    //Read in the First Train Time         (FirstTrainTime)
-    //Read in the Train Frequency        (TrainFrequency)
-    //Get the Current Time                      (CurrentTime)
-    
-     
     
     //If CurrentTime is before FirstTrainTime...
-    
-   // - FirstTrainTime can be used as “Next Arrival”
-    
-   // - Difference between CurrentTime and FirstTrainTime (“Next Arrival”) can be used as “Minutes Away”
-    
-     
-    
-    //If CurrentTime is after FirstTrainTime...
-    
-    //- Add TrainFrequency to FirstTrainTime in a loop until FirstTrainTime is after CurrentTime
-    
-    //- FirstTrainTime can now be used as “Next Arrival”
-    
-    //- Difference between CurrentTime and FirstTrainTime (“Next Arrival”) is “Minutes Away”
-
-//hopefully some helpful code??????
-
-   // var tRemainder = diffTime % frequency;
-   // console.log(tRemainder);
-   // var minutesTillTrain = frequency - tRemainder;
-   // console.log(minutesTillTrain);
-    // var nextTrain = firstTrainConverted.add(diffTime + minutesTillTrain).minutes();
-    //var nextTrain = moment().add(minutesTillTrain, "minutes");
-    //var nextTrain2 = moment().add(2, "minutes")
-    //console.log("num1" + nextTrain);
-    //console.log("num2" + nextTrain2);
-    //nextTrain = moment(nextTrain).format("HH:mm");
-    //console.log("num1" + nextTrain);
-
-
-    //take the resulting time and calculate how many minutes away
-    //do the same thing for the next train in the data
+    if (moment(currentTimeConverted).isBefore(firstTrainTimeConverted)) {
+    // - FirstTrainTime can be used as “Next Arrival”
+    trainMinutesAway = 0 - (moment().diff(firstTrainTimeConverted, "minutes"));
+    trainNextArrival = moment(firstTrainTimeConverted).format("HH:mm");
+      } else {
+      while (moment(firstTrainTimeConverted).isBefore(currentTimeConverted)) {
+          firstTrainTimeConverted.add(trainFrequency, "m");
+          trainMinutesAway = 0 - (moment().diff(firstTrainTimeConverted, "minutes"));
+          trainNextArrival = moment(firstTrainTimeConverted).format("HH:mm");
+      }
+    }
   
     // Create the new row
     var newRow = $("<tr>").append(
