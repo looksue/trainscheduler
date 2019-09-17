@@ -1,5 +1,4 @@
- 
- var firebaseConfig = {
+  var firebaseConfig = {
     apiKey: "AIzaSyCL8jfBgi2tatVsYihQ_dns1E2xInzsN2s",
     authDomain: "choochootrainscheduler.firebaseapp.com",
     databaseURL: "https://choochootrainscheduler.firebaseio.com",
@@ -41,7 +40,6 @@ $("#btnSubmit").on("click", function() {
   $("#txtFrequency").val("");
 
 });
-
 
 //create firebase event a train to the html when a user adds an entry
 database.ref().on("child_added", function(childSnapshot) {
@@ -87,5 +85,4 @@ database.ref().on("child_added", function(childSnapshot) {
   
     // Append the new row to the table
     $("#tblCurrentTrain > tbody").append(newRow);
-  
 });
