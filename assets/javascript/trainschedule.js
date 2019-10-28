@@ -51,8 +51,6 @@ database.ref().on("child_added", function(childSnapshot) {
     var trainFrequency = childSnapshot.val().colFrequency;
   
     // Calculate next arrival and minutes away
-   // var empStartPretty = moment.unix(empStart).format("MM/DD/YYYY");
-    //var empMonths = moment().diff(moment(empStart, "X"), "months");
     var trainNextArrival;
     //once a minute .....update 
     //need the first train time, add the frequency until greater than current time
